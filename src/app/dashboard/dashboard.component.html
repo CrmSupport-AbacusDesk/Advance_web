@@ -1,0 +1,208 @@
+<div class="main-container" >
+    <div class="dashboard">
+        <div class="bg-counter">
+            <ul>
+                <li matRipple style="background: #e65100;" (click)="goto_offerPage()">
+                    <div class="counter-value">
+                        <div class="counter-icon"><img src="assets/img/dashboard/pyment_due.svg"></div>
+                        <p>{{offer}}</p>
+                    </div>
+                    <div class="counter-name">Offers</div>
+                </li>
+                <li matRipple style="background: #2e7d32;" (click)="goto_offergiftPage()">
+                    <div class="counter-value">
+                        <div class="counter-icon"><img src="assets/img/dashboard/pop&gift.svg"></div>
+                        <p>{{offer_gift}}</p>
+                    </div>
+                    <div class="counter-name">Gift Gallery</div>
+                </li>
+                <li matRipple style="background: #3949ab;" (click)="goto_pending_redeem_rqs_page()">
+                    <div class="counter-value">
+                        <div class="counter-icon"><img src="assets/img/dashboard/pending.svg"></div>
+                        <p>{{pending_redeem_request}}</p>
+                    </div>
+                    <div class="counter-name">Pending Redeem Request</div>
+                </li>
+                <li matRipple style="background: #f50057;" (click)="goto_balance_coupon_page()">
+                    <div class="counter-value">
+                        <div class="counter-icon"><img src="assets/img/dashboard/marketing_exp.svg"></div>
+                        <p>{{balance_coupon_value}}</p>
+                    </div>
+                    <div class="counter-name">Balance Coupon Value</div>
+                </li>
+                <li matRipple style="background: #00b1ff;" (click)="goto_karigarsPage()">
+                    <div class="counter-value">
+                        <div class="counter-icon"><img src="assets/img/dashboard/karigars.svg"></div>
+                        <p>{{karigars}}</p>
+                    </div>
+                    <div class="counter-name">Karigars</div>
+                </li>
+                <li matRipple style="background: #8a2000;" (click)="goto_productPage()">
+                    <div class="counter-value">
+                        <div class="counter-icon"><img src="assets/img/dashboard/product.svg"></div>
+                        <p>{{products}}</p>
+                    </div>
+                    <div class="counter-name">Product</div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="row mb15" >
+            <div class="col s4 pl0 pr7">
+                <div class="pie-chart">
+                    <div class="chart-header pr0">
+                        <!-- <p>State Wise Karigar</p> -->
+                        <!-- <button (click)='toggle()'>toggle</button> -->
+                        <div class="tabs-list gift-tab-list">
+                            <ul class="mt18">
+                                <li [ngClass]="{'active':toggle_graph == 0}" (click)='toggle_graph = 0'>
+                                    <a>
+                                        <p>State Wise Karigar</p>
+                                    </a>
+                                </li>
+
+                                <li [ngClass]="{'active':toggle_graph == 1}" (click)='toggle_graph = 1'>
+                                    <a>
+                                        <p>Active Karigar</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="graph" *ngIf='toggle_graph == 0'>
+                        <fusioncharts
+                        width="100%"
+                        height="300"
+                        type="pie3d"
+                        [dataSource]=data_Source >
+                    </fusioncharts>
+                    </div>
+                <!-- </div>
+            </div> -->
+
+            <!-- <div class="col s4 pl0 pr7" *ngIf='toggle_graph == 1'>
+                <div class="pie-chart">
+                    <div class="chart-header">
+                        <!-- <p>Active Karigar</p> -->
+                        <!-- <button class="btn" (click)='toggle()'>toggle</button> -->
+                     <!-- </div> -->
+                    <div class="graph" *ngIf='toggle_graph == 1'>
+                        <fusioncharts
+                        width="100%"
+                        height="300"
+                        type="pie3d"
+                        [dataSource]=graphData >
+                        </fusioncharts>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col s8 pr0 pl7">
+                <div class="pie-chart">
+                    <div class="chart-header">
+                        <p>Coupon Code Graph Used As Availble</p>
+                    </div>
+                     <div class="chart">
+                    <fusioncharts type="mscolumn2d" height="350" width="100%" [dataSource]="dataSource">
+                    </fusioncharts>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+<div class="row mb15">
+    <div class="col s4 pl0 pr7">
+        <div class="pie-chart">
+            <div class="chart-header">
+                <p>Offer Balance Day's</p>
+            </div>
+            <div class="cs-table scroll-335">
+                <table>
+                    <tr>
+                        <th class="first-head">
+                            <div class="table-head">
+                                <table>
+                                    <tr>
+                                        <th>Offer</th>
+                                        <th class="w80 text-center">Day's</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-body">
+                                <table>
+                                    <tr *ngFor="let data of offer_balance_days">
+                                        <td>{{data.title | titlecase}}  #{{data.id}}</td>
+                                        <td class="w80 day">{{data.balance_days}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col s4 pl7 pr7">
+        <div class="pie-chart">
+            <div class="chart-header">
+                <p>Super 30 Karigars</p>
+            </div>
+            <div class="cs-table scroll-335">
+                <table>
+                    <tr>
+                        <th class="first-head">
+                            <div class="table-head">
+                                <table>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th class="w200">State</th>
+                                        <th class="w90 text-center">Balance Points</th>
+                                        <th class="w90 text-center">Gift Eligible</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-body">
+                                <table>
+                                    <tr *ngFor="let data of super_karigars">
+                                        <td>{{data.first_name | titlecase}}</td>
+                                        <td class="w200">{{data.state}}</td>
+                                        <td class="w90 point">{{data.balance_point}}</td>
+                                        <td class="w90 eligible">{{data.gift_eligible}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col s4 pr0 pl7">
+        <div class="pie-chart">
+            <div class="chart-header">
+                <p>Last 7 Day's Wise Scan Codes</p>
+            </div>
+            <div class="chart">
+                <fusioncharts
+                type="spline"
+                width="100%"
+                height="350"
+                [dataSource]="dataSource1">
+            </fusioncharts>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

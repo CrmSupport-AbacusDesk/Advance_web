@@ -1,0 +1,853 @@
+<div class="main-container">
+    <div class="offer-container">
+        <div class="loader" *ngIf = "loading_list">
+            <div class="loding-logo">
+                <mat-spinner></mat-spinner>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s8 padding0">
+                    <div class="sprate-box ">
+                        <div class="full-offer">
+                            <div class="top-heading">
+                                <h2>OFFER DETAIL</h2>
+                                <div class="no-fixed">
+                                    <button mat-button (click)="edit()"><i class="material-icons">edit</i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb0">
+                            <div class="off">
+                                <div class="col s12 padding0">
+                                    <div class="option-field">
+                                        <div class="row mb15">
+                                            <div class="col s6 pr13">
+                                                <div class="detail-field">
+                                                    <p>Title</p>
+                                                    <span>{{getData.title  | titlecase }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col s6 padding0">
+                                                <div class="detail-field">
+                                                    <p>Offer Code</p>
+                                                    <span># {{getData.offer_code}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb15">
+                                            <div class="col s6 pr13">
+                                                <div class="detail-field">
+                                                    <p>Offer Start Date</p>
+                                                    <span>{{getData.start_date | date:'dd MMM yyyy'}}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col s6 padding0">
+                                                <div class="detail-field">
+                                                    <p>Offer End Date</p>
+                                                    <span>{{getData.end_date | date:'dd MMM yyyy'}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb15">
+                                            <div class="col s6 pr13">
+                                                <div class="detail-field ngc-field">
+                                                    <p>Offer Status</p>
+                                                    <mat-slide-toggle name='offer_status' [(ngModel)]="getData.newsStatus" (change)="updateStatus($event)" ></mat-slide-toggle>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col s6 padding0">
+                                                <div class="detail-field ngc-field" (click)="addTermConditionImage()" >
+                                                    <p>AD Detail</p>
+                                                    <div class="add-co" style="cursor: pointer;">
+                                                        <i class="material-icons">add</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col s12 pr0" *ngIf="getData.reason != ''">
+                                                <div class="detail-field my-scroll">
+                                                    <div class="space">
+                                                        <p>Deactive Reason :</p>
+                                                        <span>{{getData.deactive_date | date:'d MMMM y'}} {{ getData.deactive_name ? '/ '+getData.deactive_name : ''}}</span> 
+                                                    </div>
+                                                    
+                                                    <div class="dactive-detail">
+                                                        <p>{{getData.reason}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="row mb0">
+                                            <div class="col s6 pr0">
+                                                <div class="option-field">
+                                                    <div class="col s6">
+                                                        <div class="control-field"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col s6 pr15">
+                                <div class="option-field">
+                                    <div class="territory-infos my-scroll">
+                                        <div class="heads">
+                                            <h2>DESCRIPTION</h2>
+                                        </div>
+                                        
+                                        <div class="condition-list padding15">
+                                            <ul>
+                                                <li><p  [innerHTML]="getData.description"></p></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6 pl15">
+                                <div class="option-field">
+                                    <div class="territory-infos my-scroll">
+                                        <div class="heads">
+                                            <h2>TERMS & CONDITION</h2>
+                                        </div>
+                                        
+                                        <div class="condition-list padding15">
+                                            <ul>
+                                                <li><p  [innerHTML]="getData.terms"></p></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4 pl15">
+                    <div class="territory-infos mb15">
+                        <div class="head">
+                            <h2>OFFER BANNER(ENGLISH & HINDI)</h2>
+                        </div>
+                        <div class="upload-img">
+                            <label>
+                                <div class="img-section">
+                                    <img [src]="uploadUrl+getData.banner" (click)="openDialog4(getData.id,'test7','en')" alt="" id="img">
+                                </div>
+                            </label>
+                            <label>
+                                <div class="img-section">
+                                    <img [src]="uploadUrl+getData.hin_banner" (click)="openDialog4(getData.id,'test7','hin')" alt="" id="img">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="territory-infos my-scroll">
+                        <div class="head">
+                            <h2>OFFER SUMMARY</h2>
+                        </div>
+                        
+                        <div class="offer-summery">
+                            <ul>
+                                <li *ngFor="let val of logs; let i = index">
+                                    <div class="offer-list">
+                                        <div class="odder-cradet">
+                                            <p>#{{val.title}}</p>
+                                            <span>{{val.created_name}}</span>
+                                        </div>
+                                        
+                                        
+                                        <div class="time-info">
+                                            <i class="material-icons">watch_later</i>
+                                            <p>{{val.date_created  | date: 'dd MMM yyyy h:mm a' }}</p>
+                                        </div>
+                                    </div>
+                                    <h4>{{val.remark}}</h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col s7 padding0">
+                    <div class="sprate-box  scroll">
+                        <div class="full-offer">
+                            <div class="top-heading">
+                                <h2>GIFT DETAIL</h2>
+                                <div class="add-co">
+                                    <i class="material-icons" (click)="editgift(0,0)" >add</i>
+                                </div>
+                            </div>
+                            
+                            <div class="css-table">
+                                <div class="sticky-header">
+                                    <div class="header">
+                                        <table> 
+                                            <tr>
+                                                <th class="w50">S.no</th>
+                                                <th class="w50">Id</th>
+                                                <th >Title</th>
+                                                <th class="w100">Points</th>
+                                                <th class="w165" >Gift Redeem Request</th>
+                                                <th class="w80">Image</th>
+                                                <th class="w50">Status</th>
+                                                <th class="w70">Action</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-container">
+                                    <div class="table-body">
+                                        <table>
+                                            <tr *ngFor="let v of gift; let i = index">
+                                                <td class="w50">{{ i + 1 }}</td>
+                                                <td class="w50">#{{v.gift_id}}</td>
+                                                <td >{{v.gift_title  | titlecase }}</td>
+                                                <td class="w100">{{v.coupon_points}}</td>
+                                                <td class="w165">
+                                                    <div class="request">
+                                                        <button mat-button (click)="giftRedeem(v.gift_id,v.total_redeem)" >
+                                                            <p>{{v.total_redeem}}</p>
+                                                            <i class="material-icons">keyboard_arrow_right </i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td class="w80">
+                                                    <div class="image-thum">
+                                                        <img [src]="uploadUrl+v.gift_image" (click)="openDialog2(v.gift_id,'test4')">
+                                                    </div>
+                                                </td>
+                                                <td class="w50">
+                                                    <mat-slide-toggle name="gift_status" [(ngModel)]="v.giftStatus" (change)="updateGiftStatus($event,v.gift_id)" ></mat-slide-toggle>
+                                                </td>
+                                                
+                                                <td class="w70 text-center padding0">
+                                                    <div class="td-flex">
+                                                        <button class="right" (click)="editgift(v.gift_id,v.total_redeem)"><i class="material-icons">edit</i></button>
+                                                        <button class="cancel" *ngIf="v.total_redeem == '0'" (click)="deleteGift(v.gift_id)"><i class="material-icons">delete_sweep</i></button>
+                                                        <button  *ngIf="v.total_redeem != '0'" ></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>   
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <form name="addOffer" (ngSubmit)="f.form.valid && saveOffer(f) " #f="ngForm" novalidate autocomplete="off">
+                        <div class="col s5 pl15 ">
+                            
+                            <div class="sprate-box ">
+                                <div class="full-offer">
+                                    <div class="top-heading">
+                                        <h2>AREA WISE SELECTION</h2>
+                                        <p>Indicates required fields ( * )</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="main-pd">
+                                        <div class="col s6 ">
+                                            <div class="territory-info">
+                                                <div class="head">
+                                                    <h2>STATE</h2>
+                                                    <mat-checkbox class="fix-check" color="primary" [(ngModel)]="addOffer.allStates" (change)="allState()"  name="allStates"  value="true"></mat-checkbox>
+                                                    
+                                                </div>
+                                                <div class="cs-checkbox">
+                                                    <div class="checkbox-outer">
+                                                        <section  class="checkbox-inner" *ngFor = "let val of states;let i = index" >
+                                                            <mat-checkbox class="check-list" color="primary" [(ngModel)]="val.selected" (change)="getDistrictList()"  [name]="'state'+i"  value="true" [disabled]="val.karigar_id_state > 0"> {{val.state_name}}</mat-checkbox>
+                                                        </section >
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <div class="territory-info">
+                                                <div class="head">
+                                                    <h2>DISTRICTS</h2>
+                                                    <mat-checkbox class="fix-check" [(ngModel)]="addOffer.allDistrict" (change)="allDistrict()"  name="allDistrict"  value="true"></mat-checkbox>
+                                                    
+                                                </div>
+                                                <div class="cs-checkbox">
+                                                    <div class="checkbox-outer">
+                                                        
+                                                        <ng-container *ngFor = "let val of districts;let i = index">
+                                                            <ng-container *ngIf="val.selected"  >
+                                                                
+                                                                <section  class="checkbox-inner new-bg-add"  >
+                                                                    <mat-checkbox class="check-list"  color="primary"  [(ngModel)]="val.stateWiseDistrict" (change)="allStateWiseDistrict(i)" [name]="'dist'+i"  [disabled]="val.karigar_id_state > 0"> {{val.state_name}}</mat-checkbox>
+                                                                </section >
+                                                                
+                                                                <section  class="checkbox-inner"   *ngFor = "let v of val.districts; let x = index">
+                                                                    <mat-checkbox class="check-list" color="primary" [(ngModel)]="v.selected"   [name]="'district'+x+i"  value="true"  [disabled]="v.karigar_id_district > 0"> {{v.district_name}}</mat-checkbox>
+                                                                </section >
+                                                                
+                                                            </ng-container>
+                                                            
+                                                        </ng-container>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="save un-save" [ngClass]="{loading: savingData}" >
+                                    <button mat-button  [disabled]="savingData"  class="mb21 mr10">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="used-code">
+                    <div class="tab-header">
+                        <div class="tabs-list pl15 gift-tab-list">
+                            <ul>
+                                
+                                <li (click)="mode='2'; getAvailableCoupanList()" [ngClass]="{'active': mode == '2'}"  >
+                                    <a>
+                                        <p>Available</p>
+                                        <span>{{avialable_coupon_count}}</span>
+                                    </a>
+                                </li>
+                                <li (click)="mode='1'; getScannedList()" [ngClass]="{'active': mode == '1'}" >
+                                    <a>
+                                        <p>Scanned</p>
+                                        <span>{{sccaned_coupon_count}}</span>
+                                    </a>
+                                </li>
+                                <li (click)="mode='3'; getRedeemList()" [ngClass]="{'active': mode == '3'}">
+                                    <a>
+                                        <p>Redeem</p>
+                                        <span>{{coupon_redeem_count_gift}}</span>
+                                    </a>
+                                </li>
+                                <li (click)="mode='4'; getCoupon_summary()" [ngClass]="{'active': mode == '4'}">
+                                    <a>
+                                        <p>Coupon Code Summary</p>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            
+                        </div>
+                        
+                        <div class="dobale">
+                            
+                            <div class="top-pagination" *ngIf="mode == '2'">
+                                
+                                <ul>
+                                    <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
+                                    <li><button mat-button class="left-btn" (click) = 'redirect_previous2()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                                    <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getAvailableCoupanList()"></li>
+                                    <li><button mat-button class="right-btn" (click) = 'redirect_next2()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                                </ul>
+                            </div>
+                            <div class="top-pagination" *ngIf="mode == '1'">
+                                
+                                <ul>
+                                    <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
+                                    <li><button mat-button class="left-btn" (click) = 'redirect_previous1()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                                    <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getScannedList()"></li>
+                                    <li><button mat-button class="right-btn" (click) = 'redirect_next1()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                                </ul>
+                            </div>
+                            <div class="top-pagination" *ngIf="mode == '3'">
+                                
+                                <ul>
+                                    <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
+                                    <li><button mat-button class="left-btn" (click) = 'redirect_previous3()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                                    <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getRedeemList()"></li>
+                                    <li><button mat-button class="right-btn" (click) = 'redirect_next3()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                                </ul>
+                            </div>
+                            <div class="top-pagination" *ngIf="mode == '4'">
+                                
+                                <ul>
+                                    <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
+                                    <li><button mat-button class="left-btn" (click) = 'redirect_previous4()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                                    <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getCoupon_summary()"></li>
+                                    <li><button mat-button class="right-btn" (click) = 'redirect_next4()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="transfer-code" *ngIf="mode == '2' && count">
+                                <ul>
+                                    <li>
+                                        <p>{{ count }} records selected</p>
+                                    </li>
+                                    <li >
+                                        <button mat-raised-button class="deactive" (click)="deletecheckavailable()">
+                                            <i class="material-icons">delete_sweep</i>Delete
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button mat-raised-button class="active" (click)="transferCode()" >
+                                            <i class="material-icons roted" >reply</i>Transfer Code
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="file-import">
+                                <div class="border-erea">
+                                    <label>
+                                        <form name="couponForm" #f="ngForm" novalidate autocomplete="off">
+                                            <input type="file" name="coupon" #coupon_data="ngModel" [(ngModel)]="coupon_ex"  (change)="onUploadChange1($event,f)" accept=".csv"   style="display: none;">
+                                        </form>
+                                        <i class="material-icons">backup</i>
+                                        <h4 >Import Coupon Code</h4>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="sprate">
+                                <div class="downlode-file">
+                                    <a mat-button class="link" href="http://advance.abacusdesk.com/apk/CouponSampleFile.csv">Download Sample File</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sprate-box no-box" *ngIf="mode == '2'" >
+                    <div class="css-table ">
+                        <div class="sticky-header bo-non">
+                            <div class="header no-box">
+                                <table>
+                                    <tr>
+                                        <th class="w50" *ngIf="coupon.length">
+                                            <mat-checkbox [(ngModel)]="addOffer.all_coupon" color="primary" (change)="allCoupon()"  name="all_coupon"  value="true"></mat-checkbox>All
+                                        </th>
+                                        <th  class="w200" style="border-right: solid 1px rgba(0, 0, 0, 0.1) !important;">Date / Created By</th>
+                                        <th class="w200" >Coupon Code</th>
+                                        <th class="w135">Coupon Value</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="header no-box ">
+                                <table>
+                                    <tr> 
+                                        <th class="w50"></th>
+                                        <th  class="w200" style="border-right: solid 1px rgba(0, 0, 0, 0.1) !important;"  >
+                                            <div class="date-form">
+                                                <i *ngIf="filter.date" class="material-icons" (click)="filter.date = '';getAvailableCoupanList() ">clear</i>
+                                                <mat-form-field>
+                                                    <input matInput placeholder=" Date" [(ngModel)]="filter.date"  name="date" (click)="openDatePicker(picker1)" matInput (dateChange)="getAvailableCoupanList()" [matDatepicker]="picker1" readonly> 
+                                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker1></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w200">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.coupon_code"  (keyup.enter)="current_page = 1;getAvailableCoupanList()">
+                                                <i class="material-icons">search</i>
+                                                
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w135">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.points"  (keyup.enter)="current_page = 1;getAvailableCoupanList()">
+                                                <i class="material-icons">search</i>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-body">
+                                <table>
+                                    <tr *ngFor="let val of coupon; let i = index">
+                                        <td class="w50"><mat-checkbox [(ngModel)]="val.selected_coupon" color="primary" (change)="countSelected()"  [name]="'id'+i" value="true"></mat-checkbox></td>
+                                        <td class="w200" ><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} / </ng-container>{{val.created_name}}</td>
+                                        <td class="w200">{{val.coupon_code}}</td>
+                                        <td class="w135">{{val.coupon_value}}</td>
+                                        <td class="active">
+                                            <button mat-button class="color-btn-1" (click)="deleteAvailable(val.id)">Delete</button>
+                                            <!-- <div class="action-btns">
+                                            </div> -->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sprate-box no-box" *ngIf="mode == '1'">
+                    <div class="css-table ">
+                        <div class="sticky-header bo-non">
+                            <div class="header no-box">
+                                <table>                                    
+                                    <tr>                                        
+                                        <th style="border-right: solid 1px rgba(0, 0, 0, 0.1) !important;">Date / Created By</th>
+                                        <th class="w200" >Coupon Code</th>
+                                        <th class="w135">Coupon Value</th>
+                                        <th class="w135">Used By</th>
+                                        <th class="w135">Mobile</th>
+                                        <th class="w122">Scan Date</th>
+                                        <th class="w130">Status</th>
+                                        <th class="w150">Action</th>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="header no-box ">
+                                <table>
+                                    <tr> 
+                                        <th style="border-right: solid 1px rgba(0, 0, 0, 0.1) !important;"  >
+                                            <div class="date-form">
+                                                <i *ngIf="filter.date" class="material-icons" (click)="filter.date = '';getScannedList() ">clear</i>
+                                                <mat-form-field>
+                                                    <input matInput placeholder=" Date" [(ngModel)]="filter.date"  name="date" (click)="openDatePicker(picker3)" matInput (dateChange)="getScannedList()" [matDatepicker]="picker3" readonly>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w200">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.coupon_code"  (keyup.enter)="current_page = 1;getScannedList()">
+                                                <i class="material-icons">search</i>
+                                                
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w135">
+                                            <!-- <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.offer_title"  (keyup.enter)="current_page = 1;getScannedList()">
+                                                <i class="material-icons">search</i>
+                                            </div> -->
+                                        </th>
+                                        
+                                        <th class="w135">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.used_by"  (keyup.enter)="current_page = 1;getScannedList()">
+                                                <i class="material-icons">search</i>
+                                                
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w135">
+                                            <div class="search-form">
+                                                <input type="number" placeholder="Search" [(ngModel)]="filter.mobile"  (keyup.enter)="current_page = 1;getScannedList()">
+                                                <i class="material-icons">search</i>
+                                                
+                                            </div>
+                                        </th>
+                                        <th class="w122">
+                                            <div class="date-form wp-20">
+                                                <i *ngIf="filter.used_date" class="material-icons" (click)="filter.used_date = '';getScannedList() ">clear</i>
+                                                
+                                                <mat-form-field>
+                                                    <input matInput placeholder=" Search"  [(ngModel)]="filter.used_date"  name="used_date" (click)="openDatePicker(picker5)" matInput (dateChange)="getScannedList()" [matDatepicker]="picker5" readonly>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker5></mat-datepicker>
+                                                </mat-form-field>
+                                                
+                                            </div>
+                                        </th>
+                                        <th class="w130">
+                                        </th>
+                                        <th class="w150">
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-body">
+                                <table>
+                                    <tr *ngFor="let val of scanned_coupon; let i = index">
+                                        <td class="w50">{{ i + 1 }}</td>
+                                        <td ><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} </ng-container>{{val.created_name}}</td>
+                                        <td class="w200">{{val.coupon_code}}</td>
+                                        <td class="w135">{{val.coupon_value}}</td>
+                                        <td class="w135"><a class="blue" routerLink="/karigar-detail/{{val.karigar_id}}" routerLinkActive="active">{{val.first_name | titlecase}} {{val.last_name | titlecase}}</a></td>
+                                        <td class="w135">{{val.mobile_no}}</td>
+                                        <td class="w122">{{val.scan_date | date : 'dd MMM yyyy'}}</td>
+                                        <td class="w130">Scan</td>
+                                        <td class="w150 active">
+                                            <button mat-button class="color-btn" *ngIf="val.coupon_value == val.actual_coupon_point" (click)="reponeCoupon(val.id)">Reopen</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sprate-box no-box" *ngIf="mode == '3'">
+                    <div class="css-table ">
+                        <div class="sticky-header bo-non">
+                            <div class="header no-box">
+                                <table>
+                                    <tr>
+                                        <th class="w30">&nbsp;</th>
+                                        <th class="w200" >Date / Kariger Name</th>
+                                        <th class="w100">Req. ID</th>
+                                        <th class="w100">Mobile No.</th>
+                                        <th class="w100">A/C Status</th>
+                                        <th class="w130">Sales Executive</th>
+                                        <th class="w130">Gift</th>
+                                        <th>Offer</th>
+                                        <th class="w100">Redeem Status</th>
+                                        <th class="w100">Gift Status</th>
+                                        <th class="w110">Action</th>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div class="header no-box ">
+                                <table>
+                                    <tr>
+                                        <th class="w30">&nbsp;</th>
+                                        <th class="w200">
+                                            <div class="vaild-into">
+                                                
+                                                
+                                                <div class="date-form">
+                                                    <i *ngIf="filter.date" class="material-icons" (click)="filter.date = '';getRedeemList() ">clear</i>
+                                                    <mat-form-field >
+                                                        <input placeholder="Date" [(ngModel)]="filter.date"  name="date" matInput (click)="openDatePicker(picker1)" (dateChange)="getRedeemList()" [matDatepicker]="picker1" readonly>
+                                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker1></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="form-area wp-21 ml10">
+                                                    <div class="search-form">
+                                                        <input type="text" placeholder="Karigar Name" [(ngModel)]="filter.name"  (keyup.enter)="current_page = 1;getRedeemList()">
+                                                        <i class="material-icons">search</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w100">
+                                            <div class="search-form">
+                                                <input type="text"  [(ngModel)]="filter.id"  (keyup.enter)="current_page = 1;getRedeemList()">
+                                                <i class="material-icons">search</i>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w100">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Mobile No." [(ngModel)]="filter.mobile"  (keyup.enter)="current_page = 1;getRedeemList()">
+                                                <i class="material-icons">search</i>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w100">
+                                            <div class="form-area">
+                                                <div class="slect">
+                                                    <mat-form-field>
+                                                        <mat-label>Search</mat-label>
+                                                        <mat-select  [(ngModel)]="filter.account_status" name="account_status" #account_status="ngModel" (selectionChange)="getRedeemList()">
+                                                            <mat-option value="">All</mat-option>
+                                                            <mat-option value="Verified">Verified</mat-option>
+                                                            <mat-option value="Pending">Pending</mat-option>
+                                                            <mat-option value="Reject">Reject</mat-option>
+                                                            <mat-option value="Suspect">Suspect</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w130">
+                                            <div class="slect">
+                                                <mat-form-field>
+                                                    <mat-label>Search</mat-label>
+                                                    <mat-select  name="Sales User"  (selectionChange)="getRedeemList()"  [(ngModel)]="filter.sales_user" #sales_user="ngModel" required>
+                                                        <mat-option value="">All</mat-option>
+                                                        <mat-option *ngFor="let val of sales_users" [value]="val.id"> {{val.first_name}} </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w130">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Gift" [(ngModel)]="filter.gift"  (keyup.enter)="current_page = 1;getRedeemList()">
+                                                <i class="material-icons">search</i>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="date-form">
+                                                <i *ngIf="filter.end_date" class="material-icons" (click)="filter.end_date = '';getRedeemList() ">clear</i>
+                                                
+                                                <mat-form-field >
+                                                    <input placeholder="Offer Date" [(ngModel)]="filter.end_date"  name="end_date" (click)="openDatePicker(picker2)" matInput (dateChange)="getRedeemList()" [matDatepicker]="picker2" readonly>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker2></mat-datepicker>
+                                                </mat-form-field>
+                                                
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w100">
+                                            <div class="form-area">
+                                                <div class="slect">
+                                                    <mat-form-field>
+                                                        <mat-label>Search</mat-label>
+                                                        <mat-select [(ngModel)]="filter.gift_status" name="gift_status" #gift_status="ngModel" (selectionChange)="getRedeemList()" >
+                                                            <mat-option value="" >All</mat-option>
+                                                            <mat-option value="Pending">Pending</mat-option>
+                                                            <mat-option value="Approved">Approved</mat-option>
+                                                            <mat-option value="Reject">Reject</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        
+                                        <th class="w100">
+                                            <div class="form-area">
+                                                <div class="slect">
+                                                    <mat-form-field>
+                                                        <mat-label>Search</mat-label>
+                                                        <mat-select [(ngModel)]="filter.received_status" name="received_status" #received_status="ngModel" (selectionChange)="getRedeemList()">
+                                                            <mat-option value="">All</mat-option>
+                                                            <mat-option value="Received">Received</mat-option>
+                                                            <mat-option value="Shipped">Shipped</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th class="w110">
+                                            <div class="form-area"> 
+                                                <button mat-button class="go" (click)="getRedeemList()">Go</button>
+                                            </div>
+                                        </th>
+                                        
+                                        
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-body">
+                                <table>
+                                    <tr *ngFor="let val of reedam; let i = index">
+                                        <td class="w30">{{ i + 1 }}</td>
+                                        <td class="w200"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}}/ </ng-container><a class="blue" routerLink="/karigar-detail/{{val.karigar_id}}" routerLinkActive="active">{{val.first_name}} {{val.last_name}}</a></td>
+                                        <td class="w100"> <a class="blue pl5" routerLink="/redeem-request-detail/{{val.id}}">{{val.invoice_id }}</a></td>
+                                        <td class="w100">{{val.mobile_no}}</td>
+                                        <td class="w100 bg-change {{val.karigar_status}}">{{val.karigar_status}}</td>
+                                        <td class="w130 ">{{val.sales_name}}</td>
+                                        <td class="w130 ">{{val.gift_title}}</td>
+                                        <td ><a  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> /  {{val.end_date | date: 'dd MMM yyyy'}}</td>
+                                        <td class="w100  {{val.gift_status}}" >{{val.gift_status}}
+                                            <p *ngIf="val.reject_reason"> / {{val.reject_reason}}</p>
+                                        </td>
+                                        <td class="w100 {{val.receive_status}}">
+                                            
+                                            <div class="center"  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Approved'   ">
+                                                <select class="{{val.receive_status}}"  [name]="'receive_status'+i" placeholder="Status" [(ngModel)]="val.receive_status" (change)="karigarsSatus(i) " >
+                                                    <option  value="">---</option>
+                                                    <option  value="Shipped" class="Shipped">Shipped</option>
+                                                </select> 
+                                            </div>
+                                            
+                                            <ng-container *ngIf="val.receive_status == 'Received'  ">
+                                                {{val.receive_status}}
+                                            </ng-container>
+                                            
+                                        </td>
+                                        <!-- <td class="w125 {{val.receive_status}}" >{{val.receive_status}}</td> -->
+                                        <td class="w110 link"><a (click)="requestchangeStatus(i, val.id, val.gift_status )" *ngIf="val.receive_status != 'Received' && val.gift_status != 'Reject' ">Redeem Status</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="sprate-box no-box" *ngIf="mode == '4'">
+                    <div class="css-table">
+                        
+                        <div class="sticky-header bo-non">
+                            <div class="header no-box">
+                                <table>
+                                    <tr>
+                                        <th class="w30">&nbsp;</th>
+                                        <th class="w100" >Date</th>
+                                        <th class="w100">Total Coupon</th>
+                                        <th class="w100">Total Coupon Value</th>
+                                        <th class="w100">First coupon</th>
+                                        <th class="w100">Last coupon</th>
+                                        <th class="w100">Action</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <div class="table-body">
+                                <table>
+                                    <tr *ngFor="let val of coupon_code_summary; let i = index">
+                                        <td class="w30">{{ i + 1 }}</td>
+                                        <td class="w100">{{val.date_created | date: 'dd MMM yyyy'}}</td>
+                                        <td class="w100">{{val.total_coupon}}</td>
+                                        <td class="w100">{{val.total_coupon_value}}</td>
+                                        <td class="w100">{{val.first_coupon_code}}</td>
+                                        <td class="w100">{{val.last_coupon_code}}</td>
+                                        <td class="w100" ><a class="blue" (click)="coupon_summary()">Summary</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

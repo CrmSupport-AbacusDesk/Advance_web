@@ -1,0 +1,721 @@
+<div class="loader" *ngIf = "loading_list">
+  <div class="loding-logo">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div class="main-container" >
+  <div class="offer-container">
+    <div class="row">
+      <div class="col s12 padding0">
+        <div class="sprate-box">
+          <div class="full-offer">
+            <div class="top-heading">
+              <h2>KARIGER DETAIL</h2>
+              <a class="blue"  *ngIf="getData.receive_status == ''  &&  getData.gift_status != 'Reject'" (click)="changeStatus(getData.id)">Status</a>
+            </div>
+            
+            <div class="detail-info">
+              <div class="img-box">
+                <img [src]="getData.profile" (click)="openDialog( getData.karigar_id,'test5')">
+              </div>
+              
+              <div class="basic-details">
+                <div class="profile-info">
+                  <ul>
+                    <li>
+                      <figure>
+                        <div class="left-img">
+                          <img src="assets/icon-dealer.svg">
+                        </div>
+                        <div class="right-cont">
+                          <p>Name</p>
+                          <span>{{getData.first_name}} {{getData.last_name}}</span>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      
+                      <figure>
+                        <div class="left-img">
+                          <img src="assets/contact.svg">
+                        </div>
+                        <div class="right-cont">
+                          <p>Mobile No.</p>
+                          <span>{{getData.mobile_no}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    
+                    <li>
+                      <figure>
+                        <div class="left-img">
+                          <img src="assets/calendar.svg">
+                        </div>
+                        <div class="right-cont">
+                          <p>Date of Birth</p>
+                          <span>{{getData.dob | date:'dd MMM yyyy'}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    
+                  </ul>
+                  <ul>
+                    <li>
+                      <figure>
+                        <div class="left-img">
+                          <img src="assets/book.svg">
+                        </div>
+                        <div class="right-cont">
+                          <p>Address</p>
+                          <span>{{getData.address}} {{getData.statte}} {{getData.district}} {{getData.city}} {{getData.pincode}}</span>
+                          
+                        </div>
+                      </figure>
+                      
+                    </li>
+                  </ul>
+                </div>
+                <div class="traking">
+                  <div class="traking-header">
+                    <ul>
+                      
+                      <li [ngClass]="{'check': getData.date_created != '' }">
+                        <span>1</span>
+                        <div class="traking-con">
+                          <p>Redeem Request</p>
+                          <p>{{getData.date_created | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+                      
+                      <li [ngClass]="{'check': (getData.gift_status=='Pending' || getData.gift_status=='Approved'  ) , 'reject' : getData.gift_status=='Reject' }">
+                        
+                        <span>2</span>
+                        
+                        <div class="traking-con">
+                          <p>{{getData.gift_status}}</p>
+                          <p *ngIf="getData.gift_status == 'Pending' && getData.gift_status_date_pending != '0000-00-00' ">{{getData.gift_status_date_pending | date:'d MMM y'}}</p>
+                          <p *ngIf="getData.gift_status == 'Approved' && getData.gift_status_date_approved != '0000-00-00'">{{getData.gift_status_date_approved | date:'d MMM y'}}</p>
+                          <p *ngIf="getData.gift_status == 'Reject' && getData.gift_status_date_reject != '0000-00-00'">{{getData.gift_status_date_reject | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+                      
+                      <li [ngClass]="{'check': ( getData.receive_status == 'Shipped' || getData.receive_status == 'Received' ) }">
+                        <div class="traking-list">
+                          <span>
+                            <span>3</span>
+                          </span>
+                        </div>
+                        
+                        <div class="traking-con">
+                          <p>Shipped</p>
+                          <p *ngIf="getData.shipped_date != '0000-00-00'">{{getData.shipped_date | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+                      
+                      <li [ngClass]="{'check': getData.receive_status == 'Received' }">
+                        <div class="traking-list">
+                          <span>4</span>
+                        </div>
+                        <div class="traking-con">
+                          <p>Received</p>
+                          <p *ngIf="getData.received_date != '0000-00-00'">{{getData.received_date | date:'d MMM y'}}</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col s6 padding0 ">
+        <div class="collaps">
+          <div class="collaps-area">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    DOCUMENT INFO
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <div class="sprate-box defult">
+                  <div class="detail-info defult-css">
+                    <div class="img-box">
+                      <img [src]="getData.document_image" (click)="openDialog( getData.karigar_id,'test6')">
+                      
+                      <div class="name-box">
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="basic-details">
+                      <div class="profile-info">
+                        <ul>
+                          
+                          <li>
+                            <p>Document Type</p>
+                            <span>{{getData.document_type}}</span>
+                          </li>
+                          <li>
+                            <p>Document Number</p>
+                            <span>{{getData.document_no}}</span>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+                
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+        <div class="collaps">
+          <div class="collaps-area">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    DEALER INFORMATION
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <div class="sprate-box defult gift-offer">
+                  <div class="full-offer">
+                    
+                  </div>
+                  <div class="row mb0">
+                    <div class="off">
+                      <div class="col s12 padding0">
+                        <div class="option-field pl0">
+                          
+                          
+                          <div class="row mb0 ">
+                            <div class="col s3 padding0">
+                              <div class="detail-field">
+                                <p> Counter Name</p>
+                                <span class="blue">{{getData.dealer_counter_name}}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="col s3 padding0">
+                              <div class="detail-field">
+                                <p>Contact Person</p>
+                                <span class="blue" >{{getData.dealer_contact_person}}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="col s3 padding0">
+                              <div class="detail-field ">
+                                <p>Mobile No.</p>
+                                <span>{{getData.dealer_mobile}}</span>
+                              </div>
+                            </div>
+                            <div class="col s3 padding0">
+                              <div class="detail-field status">
+                                <p>Status</p>
+                                <span>{{getData.dealer_status}}</span>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="row mb0 ">
+                            <div class="col s12">
+                              <div class="option-field">
+                                <div class="col s6">
+                                  <div class="control-field"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="sprate-box defult border-top ">
+                        <div class="full-offer">                          
+                          <div class="detail-info pl0"> 
+                            <div class="basic-details pl0">
+                              <div class="profile-info">
+                                <ul>
+                                  <li>
+                                    <p>Address</p>
+                                    <span>{{getData.dealer_address}}</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+        <div class="collaps">
+          <div class="collaps-area">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header class="border-bottom">
+                  <mat-panel-title>
+                    SALES EXECUTIVE INFORMATION
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="sprate-box defult gift-offer">
+                  <div class="row mb0">
+                      <div class="off">
+                          <div class="col s12 padding0">
+                              <div class="option-field pl0">
+                                  <div class="row mb0 ">
+                                      <div class="col s6">
+                                          <div class="detail-field">
+                                              <div class="main-12 wp100">
+                                                  <div class="con-image">
+                                                      <i class="material-icons">person</i>
+                                                  </div>
+                                                  <div class="con-1 wp100">
+                                                      <p>Name</p>
+                                                      <span >{{!getData.sales_name ? 'N/A' : getData.sales_name | titlecase }}</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col s6">
+                                          <div class="detail-field ">
+                                              <div class="main-12 wp100">
+                                                  <div class="con-image">
+                                                      <i class="material-icons">phone</i>
+                                                  </div>
+                                                  <div class="con-1 wp100">
+                                                      <p>Mobile No.</p>
+                                                      <span>{{!getData.mobile_no ? 'N/A' : getData.mobile_no}}</span>				
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row mb0 ">
+                                      <div class="col s6 ">
+                                          <div class="detail-field ">
+                                              <div class="main-12 wp100">
+                                                  <div class="con-image">
+                                                      <i class="material-icons">account_circle</i>
+                                                  </div>
+                                                  <div class="con-1 wp100">
+                                                      <p>Branch Manager</p>
+                                                      <span>{{!getData.branch_manager ? 'N/A' : getData.branch_manager}}</span>				
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col s6 ">
+                                          <div class="detail-field ">
+                                              <div class="main-12 wp100">
+                                                  <div class="con-image">
+                                                      <i class="material-icons">apartment</i>
+                                                  </div>
+                                                  <div class="con-1 wp100">
+                                                      <p>Branch Head</p>
+                                                      <span>{{!getData.branch_head ? 'N/A' : getData.branch_head}}</span>				
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+      <div class="col s6 padding0 pl15">
+        <div class="collaps">
+          <div class="collaps-area">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    GIFT DETAIL
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <div class="sprate-box defult gift-offer">
+                  <div class="full-offer">
+                    
+                  </div>
+                  <div class="row mb0">
+                    <div class="off">
+                      <div class="col s3 padding0">
+                        <div class="territory-infos ">
+                          <div class="cs-checkboxs">
+                            <div class="checkbox-outers">
+                              <img [src]="getData.gift_image" (click)="openDialogImage( getData.offer_gift_id,'test15')">
+                            </div>
+                          </div>  
+                        </div>
+                      </div>
+                      <div class="col s9 padding0">
+                        <div class="option-field">
+                          <div class="row border-bottom">
+                            <div class="col s4">
+                              <div class="detail-field">
+                                <p>Title</p>
+                                <span class="blue">{{getData.gift_title}}</span>
+                              </div>
+                            </div>
+                            
+                            
+                          </div>
+                          
+                          <div class="row mb0 ">
+                            <div class="col s4">
+                              <div class="detail-field">
+                                <p> Date</p>
+                                <span>{{getData.gift_date  | date:'dd MMM yyyy'}}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="col s4 padding0">
+                              <div class="detail-field">
+                                <p>Created By</p>
+                                <span>{{getData.gift_created}}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="col s4 padding0">
+                              <div class="detail-field status dark-red">
+                                <div class="points">
+                                  <span>{{getData.coupon_points}}</span>
+                                  <p>Points</p>
+                                </div>
+                                
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="row mb0 ">
+                            <div class="col s12">
+                              <div class="option-field">
+                                <div class="col s6">
+                                  <div class="control-field"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+        <div class="collaps">
+          <div class="collaps-area">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    OFFER DETAIL
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <div class="sprate-box gift-offer defult">
+                  <div class="full-offer">
+                  </div>
+                  <div class="row mb0">
+                    <div class="off">
+                      <div class="col s3 padding0">
+                        <div class="territory-infos ">
+                          <div class="cs-checkboxs">
+                            <div class="checkbox-outers">
+                              <img [src]="getData.offer_banner">
+                            </div>
+                          </div>  
+                        </div>
+                      </div>
+                      <div class="col s9 padding0">
+                        <div class="option-field">
+                          <div class="row border-bottom">
+                            <div class="col s4">
+                              <div class="detail-field">
+                                <p>Title</p>
+                                <span class="blue">{{getData.title}}</span>
+                              </div>
+                            </div>
+                            <div class="col s4 padding0">
+                              <div class="detail-field">
+                                <p>Offer Code</p>
+                                <span>{{getData.offer_code}}</span>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          
+                          <div class="row mb0 ">
+                            <div class="col s4">
+                              <div class="detail-field">
+                                <p>Start Date</p>
+                                <span>{{getData.start_date  | date:'dd MMM yyyy' }}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="col s4 padding0">
+                              <div class="detail-field">
+                                <p>End Date</p>
+                                <span>{{getData.end_date  | date:'dd MMM yyyy' }}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="col s4 padding0">
+                              <div class="detail-field status">
+                                <p>Status</p>
+                                <span>{{getData.offer_status}}</span>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="row mb0 ">
+                            <div class="col s12">
+                              <div class="option-field">
+                                <div class="col s6">
+                                  <div class="control-field"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row mb0">
+                    <div class="col s12">
+                      <div class="offer-12">
+                        <span>Description :</span> 
+                        <p [innerHTML]="getData.description"> </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+        <div class="collaps">
+          <div class="collaps-area">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    REQUEST REDEEM DETAIL
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <div class="sprate-box gift-offer defult">
+                  <div class="row mt10 mb10">
+                    <div class="col s4">
+                      <div class="offer-desc no-bg">
+                        <p class="pl15">Date</p>
+                        <span class="pl15">{{getData.date_created | date:'dd MMM yyyy'}}</span>
+                      </div>
+                    </div>
+                    
+                    <div class="col s4">
+                      <div class="offer-desc no-bg">
+                        <p class="pl15">Points</p>
+                        <span class="pl15">{{getData.coupon_points}}</span>
+                      </div>
+                    </div>
+                    
+                    <div class="col s4" >
+                      <div class="offer-desc request-bg no-bg " >
+                        
+                        <p class="pl15">Status</p>
+                        <span class="pl15">{{getData.gift_status}}</span>
+                        
+                        
+                        
+                      </div>
+                    </div>
+                    
+                    
+                    <div class="col s6 padding0" *ngIf="getData.reject_reason && getData.gift_status=='Reject' ">
+                      <div class="dactive my-scroll">
+                        <div class="space">
+                          <p>Reject Reason :</p>
+                          <!-- <span>6 September 2019 /Admin</span> -->
+                        </div>
+                        
+                        <div class="dactive-detail">
+                          <p>{{getData.reject_reason}}</p>
+                        </div>
+                        
+                      </div>
+                    </div>
+
+                    <div class="col s6 padding0" *ngIf="getData.receive_remark && getData.receive_status=='Received'">
+                        <div class="dactive my-scroll">
+                          <div class="space">
+                            <p>Receiving Remark :</p>
+                            <!-- <span>6 September 2019 /Admin</span> -->
+                          </div>
+                          
+                          <div class="dactive-detail">
+                            <p>{{getData.receive_remark}}</p>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    
+                    
+                  </div>
+                  
+                  <div class="row mt10 mb10" >
+                    
+                    <div class="col s4" *ngIf="getData.shipping_address">
+                        <div class="offer-desc no-bg">
+                          <p class="pl15">Shipping Address</p>
+                          <span class="pl15">{{getData.shipping_address }}</span>
+                        </div>
+                      </div>
+                    
+                    <div class="col s4"  *ngIf="getData.shipped_type">
+                      <div class="offer-desc no-bg">
+                        <p class="pl15">Shipped Type</p>
+                        <span class="pl15">{{getData.shipped_type}}</span>
+                      </div>
+                    </div>
+                    
+                    <div class="col s4" *ngIf="getData.estimated_date">
+                      <div class="offer-desc no-bg">
+                        <p class="pl15">Estimated Date</p>
+                        <span class="pl15">{{getData.estimated_date }}</span>
+                      </div>
+                    </div>
+                    
+                    <div class="col s4 mt15" *ngIf="getData.shipping_information">
+                      <div class="offer-desc no-bg " >
+                        <p class="pl15">Shipping Information</p>
+                        <span class="pl15"><p [innerHTML]="getData.shipping_information"></p></span>   
+                      </div>
+                    </div>
+                    
+                    
+                    
+                  </div>
+                  
+                </div>
+                
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+    
+    <div class="row">
+      <div class="used-code">
+        <div class="tab-header">
+          <div class="tabs-list hadding-text">
+            <h3>COUPON DETAILS</h3>
+          </div>
+          
+          <!-- <div class="dobale">
+            <div class="sprate">
+              <div class="downlode-file">
+                <div class="form-area">
+                  <div class="slect unselect">
+                    <mat-form-field>
+                      <mat-label>ACTION</mat-label>
+                      <mat-select [(value)]="selected">
+                        <mat-option>None</mat-option>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        -->
+        
+      </div>
+    </div>
+    
+    <div class="sprate-box no-box">
+      <div class="css-table ">
+        <div class="sticky-header bo-non">
+          <div class="header">
+            <table>
+              
+              <tr>
+                <th class="w50 border-right text-center">S.No.</th>
+                <th class="w100">Date</th>
+                <th class="w200" >Coupon Code</th>
+                <th class="w100" >Product Code</th>
+                <th class="w50" >Finish</th>
+                <th> Upto Valid / Offer</th>
+                <th class="w250">Used Date & Used By</th>
+                <th class="w112">Mobile No.</th>
+                <th class="w130">Redeem Date</th>
+                <th class="w200">Gift</th>
+                <th class="w90 text-center ">Points</th>              
+              </tr>
+            </table>
+          </div>
+        </div>
+        
+        <div class="table-container">
+          <div class="table-body">
+            <table>
+              <tr class="arject" *ngFor="let val of redeem_coupon; let i = index">
+                <td class="w50 text-center">{{ i + 1 }}</td>
+                <td class="w100"><ng-container *ngIf="val.offer_date  != '0000-00-00 00:00:00' "> {{val.offer_date | date: 'dd MMM yyyy'}}  </ng-container></td>
+                <td class="w200">{{val.coupon_code}}</td>
+                <td class="w100">{{val.product_code}}</td>
+                <td class="w50">{{val.finish}}</td>
+                <td > {{val.end_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/offer-detail/{{val.offer_id}}" routerLinkActive="active">{{val.title}} #{{val.offer_code}} </a></td>
+                <td class="w250">{{val.date_created | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/{{val.karigar_id}}" routerLinkActive="active">{{val.first_name}} {{val.last_name}}</a></td>
+                <td class="w112">{{val.mobile_no}}</td>
+                <td class="w130">{{val.date_created | date: 'dd MMM yyyy'}}</td>
+                <td class="w200"><a class="blue"  routerLinkActive="active">{{val.gift}}</a></td>
+                <td class="w90 text-center">{{val.coupon_value}}</td>         
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

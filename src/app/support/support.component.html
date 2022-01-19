@@ -1,0 +1,180 @@
+<div class="loader" *ngIf = "loading_list">
+  <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div class="main-container" >
+  <div class="fixed">
+      <div class="tab-header">
+          <div class="tabs-list gift-tab-list">
+              <ul>
+                  <li (click)="filter = {};filter.support_status = ''; getSupportList('All')" [ngClass]="{'active': filter.support_status == ''}" >
+                      <a>
+                          <p>All</p>
+                          <span>{{all_count}}</span>
+                      </a>
+                  </li>
+                  <li (click)="filter = {};filter.support_status = 'Pending'; getSupportList('Pending')" [ngClass]="{'active': filter.support_status == 'Pending'}">
+                      <a>
+                          <p>PENDING</p>
+                          <span class="request-bg">{{ pending_count }}</span>
+                      </a>
+                  </li>
+                  <li (click)="filter = {};filter.support_status = 'Done'; getSupportList('Done')" [ngClass]="{'active': filter.support_status == 'Done'}">
+                      <a>
+                          <p >DONE</p>
+                          <span class="approved-bg">{{done_count}}</span>
+                      </a>
+                  </li>
+              </ul>
+              <div class="master-btn pl15">
+                <button  mat-raised-button color="primary" (click)="openDatepicker()">Date Filter</button>
+            </div>
+          </div>
+          
+          <div class="refresh-btn">
+              <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getSupportList('refresh')"><i class="material-icons">refresh</i>
+              </a>
+          </div>
+          
+          
+          <div class="top-pagination">
+              <ul >
+                  <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
+                  <li><button mat-button  matTooltip="First Page" class="fisrt-btn" (click) = 'current1()'>First</button></li>
+                  
+                  <li><button mat-button class="left-btn" (click) = 'redirect_previous()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+                  <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getSupportList('')"></li>
+                  <li><button mat-button class="right-btn" (click) = 'redirect_next()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+                  <li><button mat-button  matTooltip="Last Page" class="last-btn" (click) = 'last1()'>Last</button></li>
+                  
+              </ul>
+          </div>
+      </div>
+      
+      
+      <div class="css-table "  >
+          <div class="sticky-header">
+              <div class="header">
+                  <table>
+                      
+                      <tr>
+                          <th class="w30">&nbsp;</th>
+                          <th class="w200" >Date</th>
+                          <th class="w200">Name</th>
+                          <!-- <th class="w80">Type</th> -->
+                          <th class="w120">Mobile No.</th>
+                          <th class="w200">Category</th>
+                          <th >Description</th>
+                          <th class="w100">Status</th>
+                          <th class="w200">Status Description</th>
+                          <th class="w100 text-center">Action</th>
+                          <th class="w100 text-center">Attachments</th>
+
+                      </tr>
+                      
+                  </table>
+              </div>
+              <div class="header border-bott">
+                <table>
+                    <tr>
+                        <th class="w30">&nbsp;</th>
+                        <th class="w200">
+                            <div class="vaild-into">
+                                
+                                
+                                <div class="date-form">
+                                    <mat-form-field >
+                                        <i *ngIf="filter.date" class="material-icons" (click)="filter.date = '';getSupportList('') ">clear</i>
+                                        
+                                        <input placeholder="Date" [(ngModel)]="filter.date"  name="date" (click)="openDatePicker(picker1)" matInput (dateChange)="getSupportList('')" [matDatepicker]="picker1" readonly>
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="form-area wp-21 ml10">
+                                    <div class="search-form">
+                                        <input type="text" placeholder="Karigar Name" [(ngModel)]="filter.name"  (keyup.enter)="current_page = 1;getSupportList('')">
+                                        <i class="material-icons">search</i>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </th>  
+                        <th class="w200">
+                            <div class="search-form">
+                                <input type="text"  [(ngModel)]="filter.name"  (keyup.enter)="current_page = 1;getSupportList('')">
+                                <i class="material-icons">search</i>
+                            </div>
+                        </th>
+                        <th class="w120">
+                            <div class="search-form">
+                                <input type="text" placeholder="Mobile No." [(ngModel)]="filter.mobile"  (keyup.enter)="current_page = 1;getSupportList('')">
+                                <i class="material-icons">search</i>
+                            </div>
+                        </th>
+                        <th class="w200">&nbsp;</th>
+                        <th >&nbsp;</th>
+                        <th class="w100">&nbsp;</th>
+                        <th class="w200">&nbsp;</th>
+                        <th class="w100 text-center">&nbsp;</th>
+                        <th class="w100 text-center">&nbsp;</th>
+                        
+                        
+                    </tr>
+                </table>
+            </div>
+          </div>
+          
+          
+      </div>
+  </div>
+  <div class="css-table" *ngIf="support_list.length">
+      <div class="table-container">
+          <div class="table-body">
+              <table> 
+                  <tr *ngFor="let val of support_list; let i = index">
+                      <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                      <td class="w200">{{val.date_created}}</td>
+                      <td class="w200">{{val.name}}</td>
+                      <td class="w120">{{val.mobile_no}}</td>
+                      <td class="w200">{{val.category}}</td>
+                      <td >{{val.remark}}</td>
+                      <td class="w100" [ngClass]="{'Pending':val.status=='Pending','Approved':val.status=='Done'}">{{val.status}}</td>
+                      <td class="w200">{{val.status_remark}}</td>
+                      <td class="w100 blue text-center">
+                        <a (click)="changeStatus(i, val.id, val.support_status )" *ngIf="val.status !='Reject'">Status</a>
+                      </td>
+                     <td *ngIf='val.document' class="w100 text-center" [ngClass]="{'blue':val.document}"><a (click)="!val.document?'':openDialog( val.document,'test16')">View</a></td>
+                     <td *ngIf='!val.document' class="w100 text-center" [ngClass]="{'blue':val.document}"><a (click)="!val.document?'':openDialog( val.document,'test16')">----</a></td>
+
+
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>
+  
+  
+  
+  
+  <!-- <div class="date-not" *ngIf="!loading_list && !reedam.length && ( (filter.gift_status == '' && reedam_all ) || (filter.gift_status == 'Pending' && reedam_pending ) || (filter.gift_status == 'Approved' && reedam_approved ) || (filter.gift_status == 'Reject' && reedam_reject )   )">
+      <div class="no-img">
+          <img src="assets/result-not-found.png"> 
+      </div>
+  </div>
+  
+  <div class="date-not"  *ngIf="!loading_list && ( (filter.gift_status == '' && !reedam_all ) || (filter.gift_status == 'Pending' && !reedam_pending ) || (filter.gift_status == 'Approved' && !reedam_approved ) || (filter.gift_status == 'Reject' && !reedam_reject )  ) ">
+      <div class="no-img">
+          <img src="assets/not-available.jpg"> 
+      </div>
+  </div>-->
+  
+  
+  <div class="excel-btn"  (click)="exportSupportList()" *ngIf="support_list.length">
+      <div class="image-area">
+          <a>
+              <img src="assets/excel.svg">
+          </a>
+      </div>
+  </div> 
+</div>
