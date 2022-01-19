@@ -1,0 +1,64 @@
+<!-- top-header -->
+<header>
+    <div class="top-header">
+        <div class="other-sec">
+            
+            <div class="logo">
+                <img src="assets/logo.png">
+                <div id="nav-icon" (click)="toggleHeader()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="navigation tabs-list gift-tab-list">
+                <ul>
+                    <li><a routerLink="/dashboard"  routerLinkActive="active">Dashboard</a></li>
+                    <li><a routerLink="/offer-list"  routerLinkActive="active">Offer</a></li>
+                    <li><a routerLink="/gift-list"  routerLinkActive="active">Gift Gallery</a></li>
+                    <li><a routerLink="/redeem-request-list" routerLinkActive="active">Redeem Request</a></li>
+                    <li><a routerLink="/karigar-list/1" routerLinkActive="active">Karigar</a></li>
+                    <li><a routerLink="/coupon-code-list" routerLinkActive="active">Coupon Codes</a></li>
+                    <li><a routerLink="/feedback-list" routerLinkActive="active">Chat With Us <span *ngIf='feedbk_status' class="approved-bg ml5">{{feedbk_status}}</span></a></li>
+                    <li><a routerLink="/site-gallery" routerLinkActive="active">Site Gallery</a></li>
+                    <li><a routerLink="/furniture-ideas" routerLinkActive="active">Furniture Ideas</a></li>
+                    <li><a routerLink="/support" routerLinkActive="active">Support <span *ngIf='feedbk_status' class="approved-bg ml5">{{suport_status}}</span></a></li>
+                    <li><a routerLink="/faq-questionnaire" routerLinkActive="active">FAQ</a></li>
+                    <li><a routerLink="/productcategory-list" routerLinkActive="active">Master</a></li>         
+                </ul>
+            </div>
+        </div>
+        
+        <div class="connect-alignment" style="position: absolute; right: 15px;">
+            <ul>
+                <li>
+                    <div class="abacus-connect ">
+                        <button (click)="gotoAbacusConnect()">
+                            <img src="assets/img/abacus-icon.png">
+                            <p>Abacus Connect</p>
+                            <span *ngIf="task_cn!='0'">{{task_cn}}</span>
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div class="top-nav">
+                        <ul>
+                            <li>
+                                <button mat-button [matMenuTriggerFor]="menu" class="mat-drop pl0">Welcome {{this.db.datauser.username}}</button>
+                                <mat-menu #menu="matMenu">
+                                    <a mat-menu-item (click)="logout()">Log Out</a>
+                                </mat-menu>
+                            </li> 
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+</header>
+
+<footer>
+    <img src="assets/abacusdesk.png" alt="">
+</footer>
