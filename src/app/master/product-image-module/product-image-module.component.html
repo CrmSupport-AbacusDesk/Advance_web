@@ -27,7 +27,7 @@
         
         <div class="gift-box product-img " *ngIf=" part_data.mode == 'test4'">  
             <div class="form-area">
-                <img [src]="gift.image">
+                <img [src]="uploadUrl+gift.gift_image">
             </div>
             <button mat-button [mat-dialog-close]="false" ><i class="material-icons">clear</i></button>
         </div>
