@@ -88,10 +88,9 @@ export class ProductcategoryListComponent implements OnInit {
             if(this.image)
             {
                 this.image.append("created_by",this.db.datauser.id);
-                this.image.append("category_id",d.id);
+                this.image.append("category_id", d.id);
                 
-                this.db.fileData(this.image,"category_image")
-                .subscribe(resp=>{
+                this.db.fileData(this.image,"category_image").subscribe(resp=>{
                     console.log(resp);
                     this.image = new FormData();
                 })
@@ -149,6 +148,16 @@ export class ProductcategoryListComponent implements OnInit {
     
     onUploadChange(data: any)
     {            
+
+        // console.log(data.target.files[0].size);
+        // const maxFileSize = 1000000;
+        // const max_file = 1000000 / 1000000;
+
+        // if(data.target.files[0].size > maxFileSize) {
+        //     this.dialog.error( 'Max File Size Allowed is ' + max_file + ' MB');
+        //     return;
+        // }
+
         for(let i=0;i<data.target.files.length;i++)
         {
             console.log(data.target.files[i]);
@@ -181,11 +190,13 @@ export class ProductcategoryListComponent implements OnInit {
     deleteProductImage(index,data)
     {
         console.log(index);
-        this.db.post_rqst({"data":data},"master/delete_cat_image")
-        .subscribe(resp=>{
-            console.log(resp);
-            this.selected_image.splice(index,1)
-        });
+        if(data.id){
+            this.db.post_rqst({"data":data},"master/delete_cat_image")
+            .subscribe(resp=>{
+                console.log(resp);
+            });
+        }
+        this.selected_image.splice(index,1)
     }
     active:any='';
     ProductProfile(index,img_id)
