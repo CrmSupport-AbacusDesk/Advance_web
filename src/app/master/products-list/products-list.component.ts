@@ -166,6 +166,9 @@ export class ProductsListComponent implements OnInit {
             }
             
         });
+        this.savingData = false;
+        this.toggle = "false";
+
     }
     
     

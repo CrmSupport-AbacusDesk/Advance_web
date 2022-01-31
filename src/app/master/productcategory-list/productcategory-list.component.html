@@ -44,7 +44,9 @@
                     
                     <div class="image-section1">
                         <ng-container *ngFor="let row of val.image; let i=index">
-                            <img *ngIf="row.profile == '1'" [src]="uploadurl+row.image_name" (click)="openDialog(row.image_name, 'test2' )" onError="this.src='assets/img/category_img.png';">
+                            <img *ngIf="i == '0'" [src]="uploadurl+row.image_name" 
+                             (click)="openDialog(row.image_name, 'test2' )" 
+                             onError="this.src='assets/img/category_img.png';">
                         </ng-container>
                     </div>
                     

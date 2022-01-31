@@ -43,7 +43,8 @@
             </div>
             
             <div class="refresh-btn">
-                <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getOfferList('refresh');refresh_counts()"><i class="material-icons">refresh</i></a>
+                <a mat-button matTooltip="Refresh" matTooltipPosition="below"
+                 (click)="getOfferList('refresh');refresh_counts()"><i class="material-icons">sync</i></a>
             </div>
             
             <div class="top-pagination"  >
@@ -57,7 +58,10 @@
                     <li><button mat-button  matTooltip="Last Page" class="last-btn" (click) = 'last1()'>Last</button></li>
                 </ul>
                 <div class="master-btn ml20">
-                    <button mat-button routerLink="/add-offer">ADD OFFER</button>
+                    <button mat-button routerLink="/add-offer">
+                        <i class="material-icons" style="font-size:18px;">redeem</i>
+                        ADD OFFER
+                    </button>
                 </div>
             </div>
         </div>

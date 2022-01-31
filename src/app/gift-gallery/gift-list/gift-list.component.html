@@ -40,7 +40,8 @@
             </div>
             
             <div class="refresh-btn">
-                <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getGiftList('refresh')"><i class="material-icons">refresh</i></a>
+                <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getGiftList('refresh')">
+                    <i class="material-icons">sync</i></a>
             </div>
             <div class="top-pagination" >
                 <ul>
@@ -156,7 +157,7 @@
                         <td class="w200"><a class="blue" routerLink="/gift-detail/{{val.id}}" routerLinkActive="active">{{val.gift_title  | titlecase }} #{{val.id}}</a></td>
                         <td class="w60">
                             <div class="image-thum">
-                                <img [src]="val.image" (click)="openDialog( val.id,'test4')">
+                                <img [src]="val.image" (click)="openDialog(val.id,'test4')">
                             </div>
                         </td>
                         <td ><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}  </a> / {{val.end_date | date: 'dd MMM yyyy'}}</td>
