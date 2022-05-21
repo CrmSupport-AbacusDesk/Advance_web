@@ -1,4 +1,4 @@
-<div class="loader loader-zindex" *ngIf = "loading_list">
+    <div class="loader loader-zindex" *ngIf = "loading_list">
     <div class="loding-logo">
         <mat-spinner></mat-spinner>
     </div>
@@ -32,7 +32,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="master-btn pl15"  *ngIf="mode == '1' || mode == '2'">
+                <div class="master-btn pl15"  *ngIf="mode == '1' || mode == '2' || mode == '3'">
                     <button  mat-raised-button color="primary" (click)="openDatepicker()">Date Filter</button>
                 </div>
             </div>
@@ -374,8 +374,8 @@
                             
                             <th class="w50 border-right text-center">S.No.</th>
                             <th class="w120">Date</th>
-                            <th class="w200" >Coupon Code</th>
-                            <th class="w150" >Product Code</th>
+                            <th class="w175" >Coupon Code</th>
+                            <th class="w90" >Product Code</th>
                             <th  >Offer / Valid Upto</th>
                             <th class="w250">Used Date & Used By</th>
                             <th class="w100">Mobile No.</th>
@@ -404,7 +404,7 @@
                                     
                                 </div>
                             </th>  
-                            <th class="w200">
+                            <th class="w175">
                                 <div class="form-area wp-21">
                                     <div class="search-form">
                                         <input type="text" placeholder="Search" [(ngModel)]="filter.coupon_code"  (keyup.enter)="current_page = 1;getRedeemList('')">
@@ -413,7 +413,7 @@
                                 </div>
                             </th>
 
-                            <th class="w150">
+                            <th class="w90">
                                 <div class="form-area wp-21">
                                     <div class="search-form">
                                         <input type="text" placeholder="Search" [(ngModel)]="filter.product_code"  (keyup.enter)="current_page = 1;getRedeemList('')">
@@ -508,10 +508,10 @@
                         <tr class="arject" *ngFor="let val of redeem_coupon; let i = index">
                             <td class="w50 text-center">{{ i + 1 + sr_no }}</td>
                             <td class="w120"><ng-container *ngIf="val.offer_date  != '0000-00-00 00:00:00' "> {{val.offer_date | date: 'dd MMM yyyy'}} </ng-container>{{val.created_name}}</td>
-                            <td class="w200">{{val.coupon_code}}</td>
-                            <td class="w150">{{val.product_code ? val.product_code : 'N/A'}}</td>
+                            <td class="w175">{{val.coupon_code}}</td>
+                            <td class="w90">{{val.product_code ? val.product_code : 'N/A'}}</td>
                             <td ><a class="blue" routerLink="/offer-detail/{{val.offer_id}}" routerLinkActive="active">{{val.title}} #{{val.offer_code}} </a> / {{val.end_date=='0000-00-00 00:00:00'?'':(val.end_date | date : 'dd MMM yyyy')}}</td>
-                            <td><p>{{val.date_created=='0000-00-00 00:00:00'?'':(val.date_created | date : 'dd MMM yyyy')}} / <a class="blue" routerLink="/karigar-detail/{{val.karigar_id}}" routerLinkActive="active">{{val.first_name}} {{val.last_name}}</a></p></td>
+                            <td class="w250"><p>{{val.scan_date=='0000-00-00 00:00:00'?'':(val.scan_date | date : 'dd MMM yyyy')}} / <a class="blue" routerLink="/karigar-detail/{{val.karigar_id}}/{{current_page}}" routerLinkActive="active">{{val.first_name}} {{val.last_name}}</a></p></td>
                             <td class="w100">{{val.mobile_no}}</td>
                             <td class="w120">{{val.date_created=='0000-00-00 00:00:00'?'':(val.date_created | date: 'dd MMM yyyy')}}</td>
                             <td class="w200">{{val.gift}}</td>
@@ -520,6 +520,7 @@
                     </table>
                 </div>
             </div>
+            
         </div>
         
         <div class="css-table" *ngIf="mode == '4' && !(!filtering && coupon_code_summary.length == 0 )  ">
