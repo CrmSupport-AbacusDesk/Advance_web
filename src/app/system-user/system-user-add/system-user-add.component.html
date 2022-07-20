@@ -1,0 +1,105 @@
+<div class="container hp100">
+  <form class="hp100" name="userForm" (ngSubmit)="f.form.valid && saveUser(f) " #f="ngForm" novalidate autocomplete="off">
+    <div class="sprate-box defult">
+      <div class="full-offer">
+        <div class="top-heading">
+          <h2>{{userForm.id ? 'Edit' :'Add'}} System User</h2>
+          <button mat-button mat-dialog-close ><i class="material-icons">clear</i></button>
+        </div>
+      </div>
+      <div class="add-image padding10 ">
+        <div class="sco-12">
+          <div class="scrol-13">
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="Name" name="first_name" [(ngModel)]="userForm.first_name" #first_name="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div class="option-field mt15">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="Mobile Number" name="phone" (keypress)="numeric_Number($event)"
+                  maxlength="10" [(ngModel)]="userForm.phone" #phone="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="Email Id" name="email" [(ngModel)]="userForm.email"
+                  #email="ngModel" required>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div class="option-field mt15">
+              <div class="control-field">
+                <div class="territory-info">
+                  <div class="head">
+                    <h2>Assign Modules</h2>
+                  </div>
+                  <div class="cs-checkbox">
+                    <div class="checkbox-outer">
+                      <section class="checkbox-inner">
+                        <mat-checkbox class="check-list" name="dashboard" [(ngModel)]="userForm.dashboard" #dashboard="ngModel">
+                          Dashboard
+                        </mat-checkbox>
+                        <mat-checkbox class="check-list" name="offer" [(ngModel)]="userForm.offer" #offer="ngModel">
+                          Offer
+                        </mat-checkbox>
+                        
+                        <mat-checkbox class="check-list" name="gift_gallery" [(ngModel)]="userForm.gift_gallery" #gift_gallery="ngModel">
+                          Gift Gallery
+                        </mat-checkbox>
+                        
+                        <mat-checkbox class="check-list" name="redeem_request" [(ngModel)]="userForm.redeem_request" #redeem_request="ngModel">
+                          Redeem Request
+                        </mat-checkbox>
+                        
+                        <mat-checkbox class="check-list" name="karigar" [(ngModel)]="userForm.karigar" #karigar="ngModel">
+                          Karigar
+                        </mat-checkbox>
+                        
+                        <mat-checkbox class="check-list" name="coupon_code" [(ngModel)]="userForm.coupon_code" #coupon_code="ngModel">
+                          Coupon codes
+                        </mat-checkbox>
+                        <mat-checkbox class="check-list" name="feedback" [(ngModel)]="userForm.feedback" #feedback="ngModel">
+                          Chat With Us
+                        </mat-checkbox>
+                        <mat-checkbox class="check-list" name="gallery" [(ngModel)]="userForm.gallery" #gallery="ngModel">
+                          Site Gallery
+                        </mat-checkbox>
+                        <mat-checkbox class="check-list" name="furniture_ideas" [(ngModel)]="userForm.furniture_ideas" #furniture_ideas="ngModel">
+                          Furniture Ideas
+                        </mat-checkbox>
+                        <mat-checkbox class="check-list" name="support" [(ngModel)]="userForm.support" #support="ngModel">
+                          Support
+                        </mat-checkbox>
+                        
+                        <mat-checkbox class="check-list" name="faq" [(ngModel)]="userForm.faq" #faq="ngModel">
+                          FAQ
+                        </mat-checkbox>
+                        <mat-checkbox class="check-list" name="master" [(ngModel)]="userForm.master" #master="ngModel">
+                          Master
+                        </mat-checkbox>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="footer-fix-btn">
+      <button mat-raised-button color="accent">{{userForm.id ? 'Update' :'Save'}}</button>
+    </div>
+  </form>
+</div>
+
+

@@ -10,7 +10,10 @@ import {DialogComponent} from './../dialog/dialog.component';
 })
 export class HeaderComponent implements OnInit {
     
-    constructor(private renderer: Renderer2, private router: Router, public ses: SessionStorage, public db: DatabaseService , public dialog: DialogComponent) { }
+    constructor(private renderer: Renderer2, private router: Router, public ses: SessionStorage, public db: DatabaseService , public dialog: DialogComponent) {
+   
+     }
+  
     
     ngOnInit() {
         this.get_abacus_con(); 
@@ -42,6 +45,7 @@ export class HeaderComponent implements OnInit {
     feedbk_status:any;
     feedback_status()
     {
+        console.log(this.db);
         this.db.post_rqst( {}, 'app_karigar/feedback_unseen_msg_counter')
         .subscribe(resp=> {
             this.feedbk_status=resp.feedback_unseen_msg_counter

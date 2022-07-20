@@ -95,6 +95,9 @@ import { SendNotificationComponent } from './master/karigar-data/send-notificati
 import { MessageHistoryComponent } from './master/message-history/message-history.component';
 import { SupportComponent } from './support/support.component';
 import { DailyScanReportComponent } from './master/daily-scan-report/daily-scan-report.component';
+import { MasterTabComponent } from './master-tab/master-tab.component';
+import { SystemUserListComponent } from './system-user/system-user-list/system-user-list.component';
+import { SystemUserAddComponent } from './system-user/system-user-add/system-user-add.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -138,6 +141,7 @@ const routes: Routes = [
   {path: 'message-history', component:MessageHistoryComponent , canActivate: [AuthGuard] },
   {path: 'support',  component:SupportComponent , canActivate: [AuthGuard] },
   {path: 'daily-scan-report', component:DailyScanReportComponent , canActivate: [AuthGuard] },
+  {path: 'user-list', component:SystemUserListComponent , canActivate: [AuthGuard] },
 
   { path: '**', redirectTo: ''},
 ];
@@ -219,6 +223,9 @@ const routes: Routes = [
     MessageHistoryComponent,
     SupportComponent,
     DailyScanReportComponent,
+    MasterTabComponent,
+    SystemUserListComponent,
+    SystemUserAddComponent,
   ],
   imports: [
     HttpClientModule,
@@ -275,7 +282,8 @@ const routes: Routes = [
     ImportcodeComponent,
     SendmessageComponent,
     BonusPointModelComponent,
-    SendNotificationComponent
+    SendNotificationComponent,
+    SystemUserAddComponent
   ],
   
   exports: [
