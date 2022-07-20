@@ -14,18 +14,18 @@
             
             <div class="navigation tabs-list gift-tab-list">
                 <ul>
-                    <li><a routerLink="/dashboard"  routerLinkActive="active">Dashboard</a></li>
-                    <li><a routerLink="/offer-list"  routerLinkActive="active">Offer</a></li>
-                    <li><a routerLink="/gift-list"  routerLinkActive="active">Gift Gallery</a></li>
-                    <li><a routerLink="/redeem-request-list" routerLinkActive="active">Redeem Request</a></li>
-                    <li><a routerLink="/karigar-list/1" routerLinkActive="active">Karigar</a></li>
-                    <li><a routerLink="/coupon-code-list" routerLinkActive="active">Coupon Codes</a></li>
-                    <li><a routerLink="/feedback-list" routerLinkActive="active">Chat With Us <span *ngIf='feedbk_status' class="approved-bg ml5">{{feedbk_status}}</span></a></li>
-                    <li><a routerLink="/site-gallery" routerLinkActive="active">Site Gallery</a></li>
-                    <li><a routerLink="/furniture-ideas" routerLinkActive="active">Furniture Ideas</a></li>
-                    <li><a routerLink="/support" routerLinkActive="active">Support <span *ngIf='feedbk_status' class="approved-bg ml5">{{suport_status}}</span></a></li>
-                    <li><a routerLink="/faq-questionnaire" routerLinkActive="active">FAQ</a></li>
-                    <li><a routerLink="/productcategory-list" routerLinkActive="active">Master</a></li>         
+                    <li><a routerLink="/dashboard"  *ngIf="this.db.datauser.id==1 || this.db.datauser.dashboard==1"  routerLinkActive="active">Dashboard</a></li>
+                    <li><a routerLink="/offer-list" *ngIf="this.db.datauser.id==1 || this.db.datauser.offer==1"   routerLinkActive="active">Offer</a></li>
+                    <li><a routerLink="/gift-list" *ngIf="this.db.datauser.id==1 || this.db.datauser.gift_gallery==1"  routerLinkActive="active">Gift Gallery</a></li>
+                    <li><a routerLink="/redeem-request-list" *ngIf="this.db.datauser.id==1 || this.db.datauser.redeem_request==1" routerLinkActive="active">Redeem Request</a></li>
+                    <li><a routerLink="/karigar-list/1" *ngIf="this.db.datauser.id==1 || this.db.datauser.karigar==1" routerLinkActive="active" routerLinkActive="active">Karigar</a></li>
+                    <li><a routerLink="/coupon-code-list"  *ngIf="this.db.datauser.id==1 || this.db.datauser.coupon_code==1" routerLinkActive="active" routerLinkActive="active">Coupon Codes</a></li>
+                    <li><a routerLink="/feedback-list" *ngIf="this.db.datauser.id==1 || this.db.datauser.feedback==1"  routerLinkActive="active" >Chat With Us <span *ngIf='feedbk_status' class="approved-bg ml5">{{feedbk_status}}</span></a></li>
+                    <li><a routerLink="/site-gallery" *ngIf="this.db.datauser.id==1 || this.db.datauser.gallery==1"  routerLinkActive="active" routerLinkActive="active">Site Gallery</a></li>
+                    <li><a routerLink="/furniture-ideas" *ngIf="this.db.datauser.id==1 || this.db.datauser.furniture_ideas==1"  routerLinkActive="active">Furniture Ideas</a></li>
+                    <li><a routerLink="/support" *ngIf="this.db.datauser.id==1 || this.db.datauser.support==1"  routerLinkActive="active">Support <span *ngIf='feedbk_status' class="approved-bg ml5">{{suport_status}}</span></a></li>
+                    <li><a routerLink="/faq-questionnaire" *ngIf="this.db.datauser.id==1 || this.db.datauser.faq==1"  routerLinkActive="active">FAQ</a></li>
+                    <li><a routerLink="/productcategory-list" *ngIf="this.db.datauser.id==1 || this.db.datauser.master==1"  routerLinkActive="active">Master</a></li>         
                 </ul>
             </div>
         </div>
@@ -45,7 +45,7 @@
                     <div class="top-nav">
                         <ul>
                             <li>
-                                <button mat-button [matMenuTriggerFor]="menu" class="mat-drop pl0">Welcome {{this.db.datauser.username}}</button>
+                                <button mat-button [matMenuTriggerFor]="menu" class="mat-drop pl0">Welcome {{this.db.datauser.first_name | titlecase}}</button>
                                 <mat-menu #menu="matMenu">
                                     <a mat-menu-item (click)="logout()">Log Out</a>
                                 </mat-menu>

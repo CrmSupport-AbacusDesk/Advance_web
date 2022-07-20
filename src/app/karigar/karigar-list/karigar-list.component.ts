@@ -32,6 +32,7 @@ export class KarigarListComponent implements OnInit {
     karigar_verified : any = 0;
     
     constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog) {
+        console.log(db, 'test db');
         this.route.params.subscribe(resp=>{
             this.current_page = resp.page;
         });
